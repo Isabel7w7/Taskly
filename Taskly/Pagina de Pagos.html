@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskly - Planes y Suscripciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ════ PALETA DE COLORES OFICIAL DE TASKLY ════ */
+        :root {
+            --primary: #102340;
+            /* Azul Profundo */
+            --mint: #AEE5CD;
+            /* Verde Menta */
+            --mint-soft: #d4f0e4;
+            /* Menta Suave */
+            --mint-dark: #7ecfaa;
+            /* Menta Oscuro */
+            --bg-body: #f0f7f4;
+            /* Fondo General claro */
+            --text-main: #102340;
+            --text-light: #5a6a85;
+            --white: #ffffff;
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* Contenedor principal de la página */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ── BOTÓN DE REGRESO (FLECHA) ── */
+        .back-navigation {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 18px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(16, 35, 64, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateX(-4px);
+        }
+
+        /* Encabezado de la sección */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* ── GRID DE TARJETAS DE PRECIOS ── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 40px 30px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(16, 35, 64, 0.05);
+            border: 2px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(16, 35, 64, 0.08);
+        }
+
+        /* Tarjeta Destacada (Pro / Recomendada) */
+        .pricing-card.pro {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--mint);
+        }
+
+        /* Badge Recomendado */
+        .badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--mint);
+            color: var(--primary);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(174, 229, 205, 0.4);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .sub-price {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .pro .sub-price {
+            color: var(--mint-soft);
+        }
+
+        .team-icons {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .pro .team-icons {
+            color: var(--mint);
+        }
+
+        /* Lista de Beneficios */
+        .features-list {
+            list-style: none;
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .features-list li {
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .features-list i {
+            color: var(--mint-dark);
+            font-size: 1.1rem;
+        }
+
+        .pro .features-list i {
+            color: var(--mint);
+        }
+
+        /* Botones de Acción */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            margin-top: auto;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background-color: var(--mint);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--mint-dark);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="back-navigation">
+            <a href="dashboard.php" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="header-section">
+            <h1>Planes y Suscripciones</h1>
+            <p>Elige la opción que mejor se adapte a las necesidades de tus equipos de trabajo</p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Básico</h2>
+                    <span class="price">Gratis</span>
+                </div>
+                <div class="sub-price">Ideal para gestionar tus proyectos personales o tareas individuales.</div>
+
+                <div class="team-icons">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check-circle"></i> Hasta 3 equipos activos</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Tareas y actividades ilimitadas</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Funciones básicas de tablero</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Soporte comunitario</li>
+                </ul>
+
+                <button class="btn btn-disabled">Tu plan actual</button>
+            </div>
+
+            <div class="pricing-card pro">
+                <div class="badge">RECOMENDADO</div>
+                <div class="card-header">
+                    <h2>Pro</h2>
+                    <span class="price">$10 <span style="font-size: 1.2rem; font-weight: 500;">/ mes</span></span>
+                </div>
+                <div class="sub-price">Desbloquea todo el potencial de colaboración sin ningún tipo de límite.</div>
+
+                <div class="team-icons">
+                    <i class="fa-solid fa-user-group"></i>
+                </div>
+
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check-circle"></i> Equipos ILIMITADOS</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Gestión y asignación avanzada</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Soporte técnico prioritario 24/7</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Integraciones premium y reportes</li>
+                </ul>
+
+                <button class="btn btn-primary">Actualizar a Pro</button>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
